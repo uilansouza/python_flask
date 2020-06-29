@@ -1,3 +1,5 @@
 env_flask
 .idea
+/.idea
+/env_flask
 
