@@ -2,9 +2,9 @@ import mysql.connector
 
 conexao = mysql.connector.connect(
     host="localhost",
-    user="seu usuario",
-    port = 3306,
-    password="sua senha",
+    user="admin",
+    port=3306,
+    password="39411434",
     auth_plugin='mysql_native_password'
 )
 

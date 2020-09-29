@@ -15,12 +15,15 @@ class JogoDao:
     def salvar(self, jogo):
         cursor = self.__db.cursor()
 
-        if (jogo.id):
+        if jogo.id:
             cursor.execute(SQL_ATUALIZA_JOGO, (jogo.nome, jogo.categoria, jogo.console, jogo.id))
+            cursor.close()
+
         else:
-            cursor.execute(SQL_CRIA_JOGO, (jogo.nome, jogo.categoria, jogo.console))
-            jogo.id = cursor.lastrowid
-        self.__db.commit()
+            cursor.execute('INSERT into jogo (nome, categoria, console) values (%s, %s, %s)', (jogo.nome, jogo.categoria, jogo.console))
+            jogo.id = cursor.lastrowid #insere um novo ID
+            self.__db.commit()
+
         return jogo
 
     def listar(self):
@@ -44,7 +47,7 @@ class UsuarioDao:
     def __init__(self, db):
         self.__db = db
 
-    def busca_por_id(self, id):
+    def buscar_por_id(self, id):
         cursor = self.__db.cursor()
         cursor.execute(SQL_USUARIO_POR_ID, (id,))
         dados = cursor.fetchone()
